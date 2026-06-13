@@ -697,6 +697,63 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 .modal-dismiss:hover { color: var(--papier); border-color: rgba(255,255,255,0.35); }
 
+/* ============================================================
+   VISUELS INVITÉS (cartes carrées doublages emblématiques)
+   ============================================================ */
+.guest-feature {
+  margin: 0;
+  max-width: 420px;
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 30px 70px rgba(0,0,0,0.6);
+  background: var(--noir);
+  line-height: 0;
+}
+.guest-feature img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Galerie des invités du numéro (page campagne) */
+.guests-section { margin-top: 1rem; }
+.guests-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.6rem;
+  margin-top: 1.8rem;
+}
+.guest-card {
+  background: var(--noir-soft);
+  border: 1px solid rgba(255,255,255,0.08);
+  overflow: hidden;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.guest-card:hover { transform: translateY(-4px); border-color: rgba(200,48,44,0.5); }
+.guest-card img { width: 100%; height: auto; display: block; }
+.guest-card figcaption {
+  padding: 1rem 1.1rem 1.2rem;
+}
+.guest-card .gc-name {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+.guest-card .gc-role {
+  font-size: 0.85rem;
+  color: var(--gris-clair);
+  line-height: 1.4;
+}
+.guest-card .gc-tag {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--onair);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
 </style>
 </head>
 <body>
