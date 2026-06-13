@@ -359,7 +359,7 @@ p + p { margin-top: 1rem; }
 /* Encart Saona */
 .spotlight {
   display: grid;
-  grid-template-columns: 0.7fr 1.3fr;
+  grid-template-columns: 240px 1fr;   /* colonne photo à largeur fixe, maîtrisée */
   gap: clamp(1.5rem, 4vw, 3rem);
   align-items: center;
   background: var(--noir-soft);
@@ -367,7 +367,13 @@ p + p { margin-top: 1rem; }
   border-left: 3px solid var(--onair);
   padding: clamp(1.5rem, 4vw, 2.5rem);
 }
-.spotlight .ph { aspect-ratio: 3 / 4; }
+.spotlight .ph {
+  aspect-ratio: 3 / 4;
+  width: 100%;
+  max-width: 240px;       /* la photo ne dépasse jamais cette largeur */
+  max-height: 340px;      /* ni cette hauteur */
+  margin: 0 auto;
+}
 
 /* ============================================================
    CAMPAGNE — barre de progression
@@ -433,6 +439,8 @@ form { display: grid; gap: 1.1rem; }
 @media (max-width: 860px) {
   .hero-grid, .profile, .campaign, .contact-grid, .spotlight { grid-template-columns: 1fr; }
   .profile .ph, .contact-grid .ph { max-width: 340px; }
+  .spotlight { text-align: center; }
+  .spotlight .ph { max-width: 200px; max-height: 280px; }
   .nav-burger { display: inline-block; }
   .nav-links {
     flex-direction: column;
@@ -456,4 +464,26 @@ form { display: grid; gap: 1.1rem; }
 /* ---- Focus visible global ---- */
 a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
   outline: 2px solid var(--onair); outline-offset: 2px;
+}
+
+/* ============================================================
+   PHOTOS INTÉGRÉES (remplissent les placeholders proprement)
+   ============================================================ */
+.ph > img.ph-photo,
+.cover-hero img.ph-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+.ph { position: relative; }
+.cover-hero { position: relative; }
+/* sur la couverture héro, garder le texte au-dessus de la photo */
+.cover-hero .ch-top, .cover-hero .ch-bottom { position: relative; z-index: 1; }
+/* léger voile pour lisibilité du texte par-dessus une photo */
+.cover-hero.has-photo::after {
+  content:""; position:absolute; inset:0; z-index:0;
+  background: linear-gradient(to bottom, rgba(0,0,0,.15), rgba(0,0,0,.65));
 }
