@@ -1,0 +1,459 @@
+/* ============================================================
+   SYNCHRO — La Mémoire du Doublage
+   Feuille de style partagée
+   Direction artistique : studio de doublage / cabine d'enregistrement
+   Palette : noir studio, papier crème, gris cabine, voyant "ON AIR"
+   ============================================================ */
+
+/* ---- Polices (Google Fonts, dépendance optionnelle) ---- */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* ---- Variables de la charte graphique ---- */
+:root {
+  --noir:        #0E0E10;  /* noir studio, fond cabine            */
+  --noir-soft:   #18181B;  /* surfaces surélevées                 */
+  --papier:      #F5F3EE;  /* blanc cassé, papier du MOOK         */
+  --gris:        #8A8A8E;  /* gris cabine, texte secondaire       */
+  --gris-clair:  #C9C7C1;  /* séparateurs sur fond clair          */
+  --onair:       #C8302C;  /* voyant rouge "ON AIR" — accent unique */
+
+  --serif:  'Playfair Display', Georgia, serif;
+  --sans:   'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --mono:   'JetBrains Mono', 'Courier New', monospace;
+
+  --max:    1180px;
+  --gut:    clamp(1.25rem, 4vw, 3rem);
+}
+
+/* ---- Reset minimal ---- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  font-family: var(--sans);
+  font-weight: 400;
+  color: var(--papier);
+  background: var(--noir);
+  line-height: 1.65;
+  font-size: 17px;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+
+/* ============================================================
+   EN-TÊTE / NAVIGATION
+   ============================================================ */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(14, 14, 16, 0.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.nav {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0.9rem var(--gut);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+/* Logo : SYNCHRO + voyant micro */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-shrink: 0;
+}
+.brand-mark {
+  font-family: var(--serif);
+  font-weight: 900;
+  font-size: 1.5rem;
+  letter-spacing: 0.06em;
+  color: var(--papier);
+}
+.brand-mark .on {
+  /* point rouge = voyant micro ouvert */
+  color: var(--onair);
+}
+.brand-sub {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gris);
+  display: block;
+  margin-top: -2px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+  list-style: none;
+  flex-wrap: wrap;
+}
+.nav-links a {
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  color: var(--gris);
+  transition: color 0.2s ease;
+  position: relative;
+  padding: 0.2rem 0;
+}
+.nav-links a:hover,
+.nav-links a:focus-visible,
+.nav-links a[aria-current="page"] {
+  color: var(--papier);
+}
+.nav-links a[aria-current="page"]::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: -3px;
+  height: 2px;
+  background: var(--onair);
+}
+
+/* Bouton menu mobile (case à cocher CSS, aucune dépendance JS) */
+.nav-toggle { display: none; }
+.nav-burger {
+  display: none;
+  cursor: pointer;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  color: var(--papier);
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 0.4rem 0.7rem;
+}
+
+/* ============================================================
+   STRUCTURE GÉNÉRALE
+   ============================================================ */
+.wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--gut); }
+
+section { padding: clamp(3rem, 8vw, 6rem) 0; }
+
+/* Surtitre signalétique (eyebrow) */
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--onair);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.eyebrow::before {
+  content: "";
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--onair);
+  box-shadow: 0 0 0 0 rgba(200,48,44,0.6);
+  animation: pulse 2.4s infinite;
+}
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(200,48,44,0.55); }
+  70%  { box-shadow: 0 0 0 8px rgba(200,48,44,0); }
+  100% { box-shadow: 0 0 0 0 rgba(200,48,44,0); }
+}
+
+h1, h2, h3 { font-family: var(--serif); font-weight: 700; line-height: 1.1; }
+h1 { font-size: clamp(2.4rem, 6vw, 4.4rem); font-weight: 900; letter-spacing: -0.01em; }
+h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); }
+h3 { font-size: 1.3rem; }
+
+.lead { font-size: 1.15rem; color: var(--gris-clair); max-width: 60ch; }
+p + p { margin-top: 1rem; }
+
+/* ============================================================
+   HÉRO (page d'accueil)
+   ============================================================ */
+.hero {
+  position: relative;
+  padding: clamp(4rem, 10vw, 7rem) 0 clamp(3rem, 6vw, 5rem);
+  overflow: hidden;
+}
+/* Forme d'onde sonore en fond (waveform) */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(255,255,255,0.035) 0 2px,
+    transparent 2px 9px
+  );
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, #000 30%, transparent 75%);
+          mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, #000 30%, transparent 75%);
+  pointer-events: none;
+}
+.hero-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+}
+.hero h1 { margin-bottom: 1.2rem; }
+.hero h1 em { font-style: italic; color: var(--gris-clair); font-weight: 500; }
+.hero-cta { margin-top: 2rem; display: flex; gap: 1rem; flex-wrap: wrap; }
+
+/* ============================================================
+   BOUTONS
+   ============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.85rem 1.4rem;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+.btn-primary { background: var(--onair); color: var(--papier); }
+.btn-primary:hover, .btn-primary:focus-visible {
+  background: #a8211d; transform: translateY(-2px);
+}
+.btn-ghost { border-color: rgba(255,255,255,0.25); color: var(--papier); }
+.btn-ghost:hover, .btn-ghost:focus-visible { border-color: var(--papier); }
+
+/* ============================================================
+   PLACEHOLDER VISUEL "COUVERTURE / PORTRAIT"
+   (cabine sombre + voyant — aucune image externe requise)
+   ============================================================ */
+.ph {
+  position: relative;
+  background:
+    radial-gradient(120% 80% at 50% 0%, #26262b 0%, #131316 55%, #0c0c0e 100%);
+  border: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  color: var(--gris);
+}
+.ph::before { /* lignes de waveform discrètes */
+  content: "";
+  position: absolute; left: 0; right: 0; bottom: 0; height: 40%;
+  background: repeating-linear-gradient(90deg,
+    rgba(255,255,255,0.06) 0 2px, transparent 2px 7px);
+  -webkit-mask-image: linear-gradient(transparent, #000);
+          mask-image: linear-gradient(transparent, #000);
+}
+.ph-label {
+  position: relative;
+  z-index: 1;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 1rem;
+}
+.ph-cover { aspect-ratio: 3 / 4; }
+.ph-cover .ph-title {
+  font-family: var(--serif);
+  font-weight: 900;
+  font-size: 1.6rem;
+  letter-spacing: 0.08em;
+  color: var(--papier);
+}
+
+/* Couverture hero stylisée */
+.cover-hero {
+  aspect-ratio: 3 / 4;
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto;
+  box-shadow: 0 30px 70px rgba(0,0,0,0.6);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.5rem;
+  background:
+    radial-gradient(130% 70% at 50% 18%, #2c2c31 0%, #161619 60%, #0d0d0f 100%);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.cover-hero .ch-top {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  font-family: var(--serif); font-weight: 900; letter-spacing: 0.06em;
+  font-size: 1.5rem;
+}
+.cover-hero .ch-num { font-family: var(--mono); font-size: 0.7rem; color: var(--onair); }
+.cover-hero .ch-bottom { text-align: center; }
+.cover-hero .ch-name {
+  font-family: var(--serif); font-style: italic; font-size: 1.8rem; color: var(--papier);
+}
+.cover-hero .ch-tag { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.2em; color: var(--gris); text-transform: uppercase; }
+
+/* ============================================================
+   SECTIONS SUR FOND CLAIR
+   ============================================================ */
+.invert { background: var(--papier); color: var(--noir); }
+.invert h1, .invert h2, .invert h3 { color: var(--noir); }
+.invert .lead { color: #44444a; }
+.invert .eyebrow { color: var(--onair); }
+
+/* ============================================================
+   GRILLE DES NUMÉROS (historique)
+   ============================================================ */
+.issues {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 1.6rem;
+}
+.issue {
+  background: var(--noir-soft);
+  border: 1px solid rgba(255,255,255,0.07);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+  display: flex; flex-direction: column;
+}
+.issue:hover { transform: translateY(-4px); border-color: rgba(200,48,44,0.5); }
+.issue .ph-cover { border: none; border-bottom: 1px solid rgba(255,255,255,0.07); }
+.issue-body { padding: 1.1rem 1.2rem 1.3rem; flex: 1; display: flex; flex-direction: column; }
+.issue-meta {
+  font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.1em;
+  color: var(--onair); text-transform: uppercase; margin-bottom: 0.4rem;
+}
+.issue-title { font-family: var(--serif); font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; }
+.issue-pitch { font-size: 0.9rem; color: var(--gris-clair); flex: 1; }
+.issue-link {
+  font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.08em;
+  color: var(--gris); margin-top: 1rem; display: inline-flex; align-items: center; gap: 0.4rem;
+  text-transform: uppercase;
+}
+.issue-link:hover { color: var(--onair); }
+
+/* ============================================================
+   PORTRAIT / FICHE PERSONNE
+   ============================================================ */
+.profile {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
+}
+.profile .ph { aspect-ratio: 4 / 5; }
+.profile-name { margin-bottom: 0.3rem; }
+.profile-role {
+  font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--onair); margin-bottom: 1.5rem;
+}
+
+/* Encart Saona */
+.spotlight {
+  display: grid;
+  grid-template-columns: 0.7fr 1.3fr;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: center;
+  background: var(--noir-soft);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-left: 3px solid var(--onair);
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+}
+.spotlight .ph { aspect-ratio: 3 / 4; }
+
+/* ============================================================
+   CAMPAGNE — barre de progression
+   ============================================================ */
+.campaign {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+}
+.stats { display: flex; gap: 2rem; flex-wrap: wrap; margin: 1.8rem 0; }
+.stat .num { font-family: var(--serif); font-size: 2.2rem; font-weight: 900; color: var(--papier); }
+.stat .lbl { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gris); }
+.progress {
+  height: 8px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden; margin: 1.5rem 0 0.6rem;
+}
+.progress > span { display: block; height: 100%; width: 78%; background: var(--onair); }
+.progress-note { font-family: var(--mono); font-size: 0.72rem; color: var(--gris); letter-spacing: 0.06em; }
+
+/* ============================================================
+   CONTACT
+   ============================================================ */
+.contact-grid { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+.contact-grid .ph { aspect-ratio: 4 / 5; }
+.contact-info { list-style: none; display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem; }
+.contact-info li { display: flex; gap: 0.8rem; align-items: baseline; }
+.contact-info .k {
+  font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--onair); min-width: 92px;
+}
+.contact-info a:hover { color: var(--onair); }
+
+form { display: grid; gap: 1.1rem; }
+.field { display: grid; gap: 0.4rem; }
+.field label { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gris); }
+.field input, .field textarea {
+  background: var(--noir-soft);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: var(--papier);
+  font-family: var(--sans); font-size: 0.95rem;
+  padding: 0.8rem 0.9rem;
+}
+.field input:focus, .field textarea:focus { outline: 2px solid var(--onair); outline-offset: 1px; border-color: transparent; }
+.field textarea { resize: vertical; min-height: 130px; }
+
+/* ============================================================
+   PIED DE PAGE
+   ============================================================ */
+.site-footer {
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding: 2.5rem 0;
+  margin-top: 2rem;
+}
+.footer-grid { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+.footer-grid p { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; color: var(--gris); }
+.footer-links { display: flex; gap: 1.4rem; list-style: none; }
+.footer-links a { font-size: 0.8rem; color: var(--gris); }
+.footer-links a:hover { color: var(--papier); }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 860px) {
+  .hero-grid, .profile, .campaign, .contact-grid, .spotlight { grid-template-columns: 1fr; }
+  .profile .ph, .contact-grid .ph { max-width: 340px; }
+  .nav-burger { display: inline-block; }
+  .nav-links {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    gap: 0.6rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    padding: 0;
+  }
+  .nav-toggle:checked ~ .nav-links { max-height: 360px; padding-top: 1rem; }
+  .nav { flex-wrap: wrap; }
+}
+
+/* ---- Accessibilité : mouvement réduit ---- */
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+
+/* ---- Focus visible global ---- */
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
+  outline: 2px solid var(--onair); outline-offset: 2px;
+}

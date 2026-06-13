@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — SYNCHRO | Olivier Barbery</title>
+  <meta name="description" content="Contacter SYNCHRO et Olivier Barbery : téléphone, réseaux professionnels et formulaire de contact." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="nav" aria-label="Navigation principale">
+      <a class="brand" href="index.html" aria-label="Accueil SYNCHRO">
+        <span>
+          <span class="brand-mark">SYNCHR<span class="on">O</span></span>
+          <span class="brand-sub">La Mémoire du Doublage</span>
+        </span>
+      </a>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" />
+      <label for="nav-toggle" class="nav-burger" aria-hidden="true">MENU</label>
+      <ul class="nav-links">
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="historique.html">Historique</a></li>
+        <li><a href="olivier-barbery.html">Olivier Barbery</a></li>
+        <li><a href="campagne.html">Campagne&nbsp;n°20</a></li>
+        <li><a href="contact.html" aria-current="page">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+      <div class="wrap">
+        <span class="eyebrow">Écrire à la rédaction</span>
+        <h1 style="margin-bottom:1.2rem">Contact</h1>
+        <p class="lead" style="margin-bottom:3rem">Une question, une proposition d'entretien, un partenariat&nbsp;? Olivier Barbery et l'équipe de SYNCHRO vous répondent.</p>
+
+        <div class="contact-grid">
+          <!-- PLACEHOLDER : photo professionnelle d'Olivier Barbery -->
+          <div>
+            <div class="ph" role="img" aria-label="Photo professionnelle d'Olivier Barbery">
+              <span class="ph-label">PHOTO PRO<br>OLIVIER BARBERY</span>
+            </div>
+
+            <ul class="contact-info" style="margin-top:2rem">
+              <li><span class="k">Téléphone</span><a href="tel:+33628255089">06&nbsp;28&nbsp;25&nbsp;50&nbsp;89</a></li>
+              <li><span class="k">Facebook</span><a href="https://www.facebook.com/" target="_blank" rel="noopener">Page professionnelle ↗</a></li>
+              <li><span class="k">LinkedIn</span><a href="https://www.linkedin.com/" target="_blank" rel="noopener">Profil LinkedIn ↗</a></li>
+            </ul>
+          </div>
+
+          <!-- ============ FORMULAIRE DE CONTACT ============ -->
+          <!-- Formulaire simple. action="#" : à relier à votre service d'envoi. -->
+          <form action="#" method="post" aria-label="Formulaire de contact">
+            <div class="field">
+              <label for="nom">Nom</label>
+              <input type="text" id="nom" name="nom" autocomplete="name" required />
+            </div>
+            <div class="field">
+              <label for="email">E-mail</label>
+              <input type="email" id="email" name="email" autocomplete="email" required />
+            </div>
+            <div class="field">
+              <label for="sujet">Sujet</label>
+              <input type="text" id="sujet" name="sujet" />
+            </div>
+            <div class="field">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" required></textarea>
+            </div>
+            <div>
+              <button type="submit" class="btn btn-primary">Envoyer le message →</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <p>© 2026 SYNCHRO · Éditions Olivier Barbery — La Mémoire du Doublage</p>
+      <ul class="footer-links">
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="historique.html">Historique</a></li>
+        <li><a href="campagne.html">Campagne n°20</a></li>
+      </ul>
+    </div>
+  </footer>
+
+</body>
+</html>
