@@ -793,15 +793,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           <h1 style="margin-bottom:1.2rem">SYNCHRO N°20</h1>
           <p class="lead">Vingt numéros que SYNCHRO garde la mémoire du doublage. Pour cet anniversaire, nous voyons grand&nbsp;: une édition spéciale, plus épaisse, plus richement illustrée — et toujours pensée comme un livre à conserver.</p>
 
-          <div class="stats">
-            <div class="stat"><div class="num" id="u-percent">…</div><div class="lbl">financé</div></div>
-            <div class="stat"><div class="num" id="u-supporters">…</div><div class="lbl">contributeurs</div></div>
-            <div class="stat"><div class="num" id="u-days">…</div><div class="lbl">jours restants</div></div>
-          </div>
-
-          <div class="progress" id="u-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Progression de la campagne"><span id="u-bar" style="width:0%"></span></div>
-          <p class="progress-note" id="u-note">Chargement des données de la campagne…</p>
-
           <div class="hero-cta">
             <!-- Lien officiel demandé -->
             <a class="btn btn-primary" href="https://fr.ulule.com/magazine-synchro-n20" target="_blank" rel="noopener">
@@ -811,80 +802,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
         </div>
       </div>
     </section>
-
-    <!-- ============ JAUGE DYNAMIQUE : données live Ulule ============ -->
-    <!--
-      La jauge est mise à jour à CHAQUE ouverture de la page en interrogeant
-      l'API publique d'Ulule. Aucune valeur n'est codée en dur dans la barre.
-      › Si l'API ne répond pas (hors-ligne, CORS, projet non publié), un repli
-        discret affiche un message neutre sans casser la page.
-      › À ADAPTER si besoin : SLUG = identifiant du projet dans son URL Ulule.
-    -->
-    <script>
-    (function () {
-      // Identifiant du projet tel qu'il apparaît dans l'URL fr.ulule.com/<SLUG>
-      var SLUG = "magazine-synchro-n20";
-      var API  = "https://api.ulule.com/v1/projects/" + encodeURIComponent(SLUG);
-
-      var $ = function (id) { return document.getElementById(id); };
-
-      function fmtInt(n) {
-        try { return new Intl.NumberFormat("fr-FR").format(n); }
-        catch (e) { return String(n); }
-      }
-
-      function paint(data) {
-        // L'API Ulule peut nommer les champs de plusieurs façons selon la version.
-        var raised = data.amount_raised != null ? data.amount_raised
-                   : (data.committed != null ? data.committed : data.collected);
-        var goal   = data.goal != null ? data.goal : data.goal_raised;
-        var backers= data.supporters_count != null ? data.supporters_count
-                   : (data.backers_count != null ? data.backers_count : data.absolute_backers_count);
-
-        // Pourcentage : utilise le champ fourni, sinon le calcule.
-        var pct = data.percent != null ? data.percent
-                : (goal ? Math.round((raised / goal) * 100) : null);
-
-        // Jours restants : champ direct ou calcul depuis la date de fin.
-        var days = data.days_remaining != null ? data.days_remaining : null;
-        if (days == null && data.date_end) {
-          var end = new Date((typeof data.date_end === "number" ? data.date_end * 1000 : data.date_end));
-          days = Math.max(0, Math.ceil((end - new Date()) / 86400000));
-        }
-
-        if (pct != null) {
-          var pctClamped = Math.max(0, Math.min(100, pct));
-          $("u-percent").textContent = pct + "%";
-          $("u-bar").style.width = pctClamped + "%";
-          $("u-progress").setAttribute("aria-valuenow", pct);
-        }
-        if (backers != null) $("u-supporters").textContent = fmtInt(backers);
-        if (days != null)    $("u-days").textContent = fmtInt(days);
-
-        // Note contextuelle
-        var note = "Données mises à jour en direct depuis Ulule.";
-        if (pct != null && pct >= 100) note = "Objectif atteint — merci à toutes et tous !";
-        else if (days === 0)          note = "Dernier jour pour soutenir le n°20 !";
-        $("u-note").textContent = note;
-      }
-
-      function fallback() {
-        // Aucune valeur inventée : on reste neutre et honnête.
-        $("u-percent").textContent = "—";
-        $("u-supporters").textContent = "—";
-        $("u-days").textContent = "—";
-        $("u-note").innerHTML =
-          'Les données en direct sont momentanément indisponibles. ' +
-          'Voir la campagne sur <a href="https://fr.ulule.com/magazine-synchro-n20" target="_blank" rel="noopener" style="color:var(--onair)">Ulule ↗</a>.';
-      }
-
-      // Appel réseau (s'exécute dans le navigateur du visiteur).
-      fetch(API, { headers: { "Accept": "application/json" } })
-        .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
-        .then(function (data) { paint(data); })
-        .catch(function () { fallback(); });
-    })();
-    </script>
 
     <!-- ============ DÉTAIL ÉDITORIAL DU N°20 ============ -->
     <section class="invert">
