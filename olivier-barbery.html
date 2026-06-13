@@ -398,7 +398,7 @@ p + p { margin-top: 1rem; }
 .progress {
   height: 8px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden; margin: 1.5rem 0 0.6rem;
 }
-.progress > span { display: block; height: 100%; width: 78%; background: var(--onair); }
+.progress > span { display: block; height: 100%; width: 0; background: var(--onair); transition: width 0.8s ease; }
 .progress-note { font-family: var(--mono); font-size: 0.72rem; color: var(--gris); letter-spacing: 0.06em; }
 
 /* ============================================================
@@ -495,6 +495,207 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   content:""; position:absolute; inset:0; z-index:0;
   background: linear-gradient(to bottom, rgba(0,0,0,.15), rgba(0,0,0,.65));
 }
+
+/* ============================================================
+   COUVERTURE RÉELLE (image fournie) — cadre + ombre éditoriale
+   ============================================================ */
+.cover-real {
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto;
+  box-shadow: 0 30px 70px rgba(0,0,0,0.6);
+  border: 1px solid rgba(255,255,255,0.1);
+  background: var(--noir);
+}
+.cover-real img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ============================================================
+   HISTORIQUE — bandeau RUPTURE + sommaire des numéros
+   ============================================================ */
+.issue { position: relative; overflow: hidden; }
+.issue .ph-cover { position: relative; overflow: hidden; }
+
+/* Bandeau rouge en biais dans l'angle haut-droit */
+.ribbon {
+  position: absolute;
+  top: 14px; right: -42px;
+  z-index: 3;
+  transform: rotate(45deg);
+  background: var(--onair);
+  color: #fff;
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 5px 52px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.45);
+  pointer-events: none;
+}
+
+/* Carte n°20 en campagne : liseré rouge */
+.issue.is-campagne { border-color: rgba(200,48,44,0.6); }
+
+/* Sommaire du numéro */
+.issue-summary {
+  margin-top: 0.7rem;
+  padding-top: 0.7rem;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  list-style: none;
+}
+.issue-summary li {
+  font-size: 0.78rem;
+  color: var(--gris-clair);
+  line-height: 1.35;
+  margin-bottom: 0.3rem;
+  padding-left: 0.8rem;
+  position: relative;
+}
+.issue-summary li::before {
+  content: "—";
+  position: absolute; left: 0;
+  color: var(--onair);
+}
+.issue-summary-label {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gris);
+  display: block;
+  margin-bottom: 0.45rem;
+}
+
+/* ============================================================
+   HISTORIQUE — prix, bouton commander, modale
+   ============================================================ */
+.issue-buy {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+.issue-price {
+  font-family: var(--serif);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--papier);
+}
+.issue-price small {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gris);
+  display: block;
+  margin-top: 0.1rem;
+  font-weight: 400;
+}
+.btn-order {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--onair);
+  border: none;
+  padding: 0.6rem 1.1rem;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+.btn-order:hover { background: #a8231f; transform: translateY(-2px); }
+.issue-status-note {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gris);
+  margin-top: 1rem;
+}
+
+/* Modale commande */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(5,5,7,0.82);
+  backdrop-filter: blur(3px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+.modal-overlay.is-open { display: flex; }
+.modal-box {
+  background: var(--noir-soft);
+  border: 1px solid rgba(255,255,255,0.12);
+  max-width: 520px;
+  width: 100%;
+  padding: 2.4rem 2.2rem 2rem;
+  position: relative;
+  box-shadow: 0 40px 90px rgba(0,0,0,0.7);
+}
+.modal-box .eyebrow { color: var(--onair); }
+.modal-title {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0.5rem 0 1rem;
+}
+.modal-text {
+  font-size: 0.95rem;
+  color: var(--gris-clair);
+  line-height: 1.6;
+  margin-bottom: 1.8rem;
+}
+.modal-actions { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+.modal-cta {
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--onair);
+  border: none;
+  padding: 0.8rem 1.4rem;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  transition: background 0.2s ease;
+}
+.modal-cta:hover { background: #a8231f; }
+.modal-close {
+  position: absolute;
+  top: 0.9rem; right: 1.1rem;
+  background: none;
+  border: none;
+  color: var(--gris);
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  font-family: var(--sans);
+}
+.modal-close:hover { color: var(--papier); }
+.modal-dismiss {
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gris);
+  background: none;
+  border: 1px solid rgba(255,255,255,0.18);
+  padding: 0.8rem 1.4rem;
+  cursor: pointer;
+}
+.modal-dismiss:hover { color: var(--papier); border-color: rgba(255,255,255,0.35); }
 
 </style>
 </head>
