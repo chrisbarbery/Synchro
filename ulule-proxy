@@ -1,0 +1,60 @@
+<?php
+/**
+ * ulule-proxy.php — Relais serveur pour la jauge Ulule de SYNCHRO
+ * -----------------------------------------------------------------
+ * POURQUOI : l'API publique d'Ulule (api.ulule.com) n'autorise pas les
+ * requêtes "fetch" directes depuis un navigateur (pas d'en-tête CORS).
+ * Ce script, exécuté côté serveur sur OVH, interroge Ulule puis renvoie
+ * le JSON à la page. Le navigateur n'appelle donc QUE votre propre domaine.
+ *
+ * INSTALLATION : déposer ce fichier à la racine du site (à côté de
+ * campagne.html) sur l'hébergement OVH. Aucune configuration requise.
+ *
+ * SLUG : identifiant du projet dans son URL Ulule
+ *        https://fr.ulule.com/magazine-synchro-n20  ->  magazine-synchro-n20
+ */
+
+$SLUG = 'magazine-synchro-n20';
+
+header('Content-Type: application/json; charset=utf-8');
+// Autorise votre page (même domaine) à lire la réponse + petit cache.
+header('Access-Control-Allow-Origin: *');
+header('Cache-Control: public, max-age=300'); // 5 min
+
+$url = 'https://api.ulule.com/v1/projects/' . rawurlencode($SLUG);
+
+$json = false;
+
+// 1) Tentative via cURL (présent par défaut sur OVH)
+if (function_exists('curl_init')) {
+    $ch = curl_init($url);
+    curl_setopt_array($ch, array(
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT        => 8,
+        CURLOPT_HTTPHEADER     => array('Accept: application/json'),
+        CURLOPT_USERAGENT      => 'SynchroSite/1.0',
+    ));
+    $json = curl_exec($ch);
+    if ($json === false) { $json = false; }
+    curl_close($ch);
+}
+
+// 2) Repli via file_get_contents si cURL indisponible
+if ($json === false && ini_get('allow_url_fopen')) {
+    $ctx = stream_context_create(array(
+        'http' => array(
+            'method'  => 'GET',
+            'header'  => "Accept: application/json\r\nUser-Agent: SynchroSite/1.0\r\n",
+            'timeout' => 8,
+        ),
+    ));
+    $json = @file_get_contents($url, false, $ctx);
+}
+
+if ($json === false) {
+    http_response_code(502);
+    echo json_encode(array('error' => 'ulule_unreachable'));
+    exit;
+}
+
+echo $json;
